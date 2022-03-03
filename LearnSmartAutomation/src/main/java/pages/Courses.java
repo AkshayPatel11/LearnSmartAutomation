@@ -75,7 +75,6 @@ public class Courses extends BasePage {
 	public void fAddSections() throws Exception {
 		int i = 1;
 
-		scrollIntoView(byTextSectionTab);
 		// click on tab button
 		javaScriptClick(byTextSectionTab);
 
