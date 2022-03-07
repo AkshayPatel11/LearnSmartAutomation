@@ -129,6 +129,7 @@ public class CommonFunctions extends VariableLibrary {
 	}
 
 	public static void type(By locator, String msg) {
+		driver.findElement(locator).clear();
 		driver.findElement(locator).sendKeys(msg);
 	}
 
@@ -232,7 +233,7 @@ public class CommonFunctions extends VariableLibrary {
 	public static void fReadfromExcelSheet(String sTestCaseID, String sSheetName) throws FilloException {
 		// Generate Excel connection with given Path
 		Fillo fillo = new Fillo();
-		Connection oConnection = fillo.getConnection("TestCaseData.xlsx");
+		Connection oConnection = fillo.getConnection("TestCaseData1.xlsx");
 		VariableLibrary.oConnection = oConnection;
 		// Generate Query for which we need Data to be retrieved
 		String strQuery = "Select * from " + sSheetName + " where testCaseID='" + sTestCaseID + "' ";

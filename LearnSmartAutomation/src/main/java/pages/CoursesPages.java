@@ -10,10 +10,10 @@ import config.Configuration;
 import genericFunctions.CommonFunctions;
 import genericFunctions.VariableLibrary;
 
-public class Courses extends BasePage {
+public class CoursesPages extends BasePage {
 
 	HomePage homePage = new HomePage();
-	Courses courses;
+	CoursesPages courses;
 
 	// Details
 	By byTextDetailsTab = By.xpath("//span[text()='Details']");
@@ -75,7 +75,6 @@ public class Courses extends BasePage {
 	public void fAddSections() throws Exception {
 		int i = 1;
 
-		scrollIntoView(byTextSectionTab);
 		// click on tab button
 		javaScriptClick(byTextSectionTab);
 
