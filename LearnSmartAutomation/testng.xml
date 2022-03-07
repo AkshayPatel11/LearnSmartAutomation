@@ -4,9 +4,22 @@
 	<listeners>
         <listener class-name="reports.TestListener"/>
     </listeners>
-  <test name="Test">
+    
+  <test name="Course Module" enabled="false">
         <classes>
             <class name="module.Course"/>
         </classes>
     </test> <!-- Test -->
+    
+    <test name="module.Contents">
+        <classes>
+            <class name="module.Contents"/>
+        </classes>
+    </test> <!-- Test -->
+    
+     <test name="module.Lessons">
+        <classes>
+            <class name="module.Lessons"/>
+        </classes>
+     </test> <!-- Test -->
 </suite> <!-- Suite -->

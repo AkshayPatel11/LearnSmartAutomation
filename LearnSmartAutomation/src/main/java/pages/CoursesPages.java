@@ -10,10 +10,10 @@ import config.Configuration;
 import genericFunctions.CommonFunctions;
 import genericFunctions.VariableLibrary;
 
-public class Courses extends BasePage {
+public class CoursesPages extends BasePage {
 
 	HomePage homePage = new HomePage();
-	Courses courses;
+	CoursesPages courses;
 
 	// Details
 	By byTextDetailsTab = By.xpath("//span[text()='Details']");

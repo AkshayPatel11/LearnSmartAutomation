@@ -19,17 +19,18 @@ public class SectionPage extends BasePage {
 	By byInputDescription = By.xpath("//textarea");
 
 	// Lessons Tab
-	By byLessonTab = By.xpath("//form//span[text()='Lessons']");
+	By byLessonTab = By.xpath("//form[@id='addSectionModal']//span[text()='Lessons']");
 	By byListLessonSection = By.xpath("//div[@id='addLessonListModal']//tr/td[2]");
-
-	// Quizz Tab
-	By byTextQuizzesTab = By.xpath("//span[text()='Quizzes']");
-	By byListQuizSection = By.xpath("//div[@id='addQuizListModal']//tr/td[2]");
-
-	By byTextAddOrDelete = By.xpath("//div[@id='sub-header']//button[1]");
-	By byButtonPopUpSave = By.xpath("//button[text()='Save']");
+	By byButtonPopUpSave = By.xpath("//div[@id='addLessonListModal']/div//button[text()='Save']");
 	By byPopUpSection = By.xpath("//div[@id='addLessonListModal']/div");
 
+	// Quizz Tab
+	By byTextQuizzesTab = By.xpath("//form[@id='addSectionModal']//span[text()='Quizzes']");
+	By byListQuizSection = By.xpath("//div[@id='addQuizListModal']//tr/td[2]");
+	By byPopUpQuizz = By.xpath("//div[@id='addQuizListModal']/div");
+	By byButtonQuizzPopUpSave = By.xpath("//div[@id='addQuizListModal']/div//button[text()='Save']");
+
+	By byTextAddOrDelete = By.xpath("//div[@id='sub-header']//button[1]");
 	By bySaveButton = By.xpath("//button[@form='addSectionModal']");
 
 	public void fAddDetails() throws Exception {
@@ -55,6 +56,7 @@ public class SectionPage extends BasePage {
 		javaScriptClick(byLessonTab);
 
 		// click on add/delete biutton
+		waitForElement(byTextAddOrDelete, LONG_WAIT);
 		javaScriptClick(byTextAddOrDelete);
 
 		waitForElement(byPopUpSection, LONG_WAIT);
@@ -68,7 +70,7 @@ public class SectionPage extends BasePage {
 			}
 			i++;
 		}
-
+		Thread.sleep(1000);
 		javaScriptClick(byButtonPopUpSave);
 
 	}
@@ -79,21 +81,22 @@ public class SectionPage extends BasePage {
 		javaScriptClick(byTextQuizzesTab);
 
 		// click on add/delete button
+		waitForElement(byTextAddOrDelete, MEDIUM_WAIT);
 		javaScriptClick(byTextAddOrDelete);
 
-		waitForElement(byPopUpSection, LONG_WAIT);
+		waitForElement(byPopUpQuizz, MEDIUM_WAIT);
 
 		// Select section
 		List<WebElement> list = driver.findElements(byListQuizSection);
 		for (WebElement w : list) {
 			if (w.getText().equalsIgnoreCase(oRecordset.getField("quizeName"))) {
-				driver.findElement(By.xpath("//div[@id='addLessonListModal']//tr[" + i + "]/td[1]")).click();
+				driver.findElement(By.xpath("//div[@id='addQuizListModal']//tr[" + i + "]/td[1]")).click();
 				break;
 			}
 			i++;
 		}
 
-		javaScriptClick(byButtonPopUpSave);
+		javaScriptClick(byButtonQuizzPopUpSave);
 
 	}
 
@@ -105,7 +108,9 @@ public class SectionPage extends BasePage {
 		boolean bNewFlag = false;
 		if (oRecordset.getField("createNewFlag").equalsIgnoreCase("1")) {
 			fAddDetails();
+			Thread.sleep(1000);
 			fAddLesson();
+			Thread.sleep(1000);
 			fAddQuizzes();
 		} else if (oRecordset.getField("editFlag").equalsIgnoreCase("1")) {
 

@@ -3,11 +3,11 @@ package module;
 import org.testng.annotations.Test;
 
 import pages.BasePage;
-import pages.Courses;
+import pages.CoursesPages;
 
 public class Course extends BasePage {
 
-	Courses courses = new Courses();
+	CoursesPages courses = new CoursesPages();
 
 	@Test(enabled = false)
 	public void fTestCase_1() throws Exception {
