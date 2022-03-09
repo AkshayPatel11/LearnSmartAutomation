@@ -3,6 +3,7 @@ package pages;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
@@ -28,7 +29,7 @@ public class QuizzesPage extends BasePage {
 	// Questions
 	By byQuesTab = By.xpath("//form//span[text()='Questions']");
 	By byAddOrDeleteQuiz = By.xpath("//div[@id='sub-header']//button[1]");
-	By byAddButton = By.xpath("//button[text()='Add']");
+	By byAddButton = By.xpath("//div[@id='addQuestionListModal']//button[text()='Save']");
 	By byPopUp = By.xpath("//div[@id='addQuestionListModal']/div");
 	By byListTopicSection = By.xpath("//div[@id='addQuestionListModal']//tr/td[2]");
 
@@ -38,6 +39,7 @@ public class QuizzesPage extends BasePage {
 
 	public void fAddDetails() {
 		try {
+			logStatus("info", "Adding Details");
 			fwaitForpageLoad();
 
 			javaScriptClick(byDetailsTab);
@@ -65,15 +67,17 @@ public class QuizzesPage extends BasePage {
 
 			// enter price
 			type(byQuizPrize, oRecordset.getField("quizPrice"));
-
+			logStatus("info", "Details Added");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			logStatus("fail", e.getMessage());
 			Assert.fail("Details not added in Quizzess");
 		}
 	}
 
 	public void fAddQuestions() {
 		try {
+			logStatus("info", "Adding questions");
 			int i = 1;
 			javaScriptClick(byQuesTab);
 			waitForElement(byAddOrDeleteQuiz, LONG_WAIT);
@@ -94,13 +98,28 @@ public class QuizzesPage extends BasePage {
 			}
 			Thread.sleep(1000);
 			javaScriptClick(byAddButton);
+
+			waitForElement(By.xpath("//form//tbody//tr[1]//td[2]//input[1]"), LONG_WAIT);
+
+			// Add Sequence
+			driver.findElement(By.xpath("//form//tbody//tr[1]//td[2]//input[1]"))
+					.sendKeys(Keys.chord(Keys.CONTROL, "a") + oRecordset.getField("sequence"));
+
+			// Add Marks
+			driver.findElement(By.xpath("//form//tbody//tr[1]//td[3]//input[1]"))
+					.sendKeys(Keys.chord(Keys.CONTROL, "a") + oRecordset.getField("marks"));
+
+			logStatus("info", "Questions Added");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			logStatus("fail", e.getMessage());
+			Assert.fail(e.getMessage());
 		}
 	}
 
 	public void fAddQuizzesPage(String sTestCaseId, String sSheetName) {
 		try {
+			logStatus("info", "Exceuting Quizzez Page");
 			CommonFunctions.fReadfromExcelSheet(sTestCaseId, sSheetName);
 
 			homePage.fSelectMainMenu(oRecordset.getField("mainMenu"));
@@ -122,13 +141,19 @@ public class QuizzesPage extends BasePage {
 			javaScriptClick(bySaveButton);
 
 			Thread.sleep(1000);
-			Assert.assertEquals(
-					driver.findElement(By.xpath("//span[text()='Quiz Created successfully']")).isDisplayed(), true);
-
+			waitForElement(By.xpath("//span[text()='Quiz created successfully']"), LONG_WAIT);
+			// Assert.assertEquals(driver.findElement(By.xpath("//span[text()='Quiz Created
+			// successfully']")).(), true);
+			isElementPresent(By.xpath("//span[text()='Quiz created successfully']"), "Quiz not created");
+			logStatus("info", "Exceution completed for  Quizzez Page");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			logStatus("fail", "Exceution completed for  Quizzez Page" + e.getMessage());
+			Assert.fail(e.getMessage());
 		} catch (AssertionError e) {
 			System.out.println(e.getMessage());
+			logStatus("fail", "Exceution completed for  Quizzez Page" + e.getMessage());
+			Assert.fail(e.getMessage());
 		}
 
 	}

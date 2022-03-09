@@ -11,15 +11,33 @@
         </classes>
     </test> <!-- Test -->
     
-    <test name="module.Contents">
+    <test name="module.Contents" enabled="false">
         <classes>
             <class name="module.Contents"/>
         </classes>
     </test> <!-- Test -->
     
-     <test name="module.Lessons">
+     <test name="module.Lessons" enabled="false">
         <classes>
             <class name="module.Lessons"/>
+        </classes>
+     </test> <!-- Test -->
+     
+     <test name="Quizzes Module" enabled="false">
+        <classes>
+            <class name="module.Quizzes"/>
+        </classes>
+     </test> <!-- Test -->
+     
+      <test name="Questions Module" enabled="false">
+        <classes>
+            <class name="module.Questions"/>
+        </classes>
+     </test> <!-- Test -->
+     
+     <test name="User Module" enabled="true">
+        <classes>
+            <class name="module.UserModule"/>
         </classes>
      </test> <!-- Test -->
 </suite> <!-- Suite -->
